@@ -255,4 +255,14 @@
 			<TextBlock Text="Repository from GitHub" />
 		</StatusBar>
     </Grid>
+
+	<Window.CommandBindings>
+		<CommandBinding Command="{x:Static dWriter:MainWindow.CommandOpenFile}" Executed="commandOpenFile_Executed" />
+		<CommandBinding Command="{x:Static dWriter:MainWindow.CommandSaveFile}" Executed="commandSaveFile_Executed" />
+	</Window.CommandBindings>
+
+	<Window.InputBindings>
+		<KeyBinding Key="O" Modifiers="Control" Command="{x:Static dWriter:MainWindow.CommandOpenFile}" />
+		<KeyBinding Key="S" Modifiers="Control" Command="{x:Static dWriter:MainWindow.CommandSaveFile}" />
+		</Window.InputBindings>
 </Window>
