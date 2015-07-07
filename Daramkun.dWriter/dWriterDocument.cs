@@ -57,17 +57,24 @@ namespace Daramkun.dWriter
 			AddPage ();
 		}
 
-		public void Load ( Stream stream, string key = "dWriter" )
+		public void Load ( Stream stream/*, string key = "dWriter"*/ )
 		{
-			using ( CryptoStream crypto = new CryptoStream ( stream, new AesCryptoServiceProvider ()
+			/*using ( CryptoStream crypto = new CryptoStream ( stream, new RijndaelManaged ()
 			{
-				Key = Encoding.UTF8.GetBytes ( key ),
-				IV = Encoding.UTF8.GetBytes ( "DARAMWORLD" )
+				KeySize = 256,
+				Key = Encoding.UTF8.GetBytes ( ( "!@#$%^&*" + key + "a2w3s4e5d6r" ).PadRight ( 32 ) ),
+				Mode = CipherMode.CBC,
+				Padding = PaddingMode.PKCS7,
+				IV = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				BlockSize = 128,
 			}.CreateDecryptor (), CryptoStreamMode.Read ) )
-			{
-				using ( DeflateStream deflate = new DeflateStream ( crypto, CompressionLevel.Optimal, true ) )
-				{
-					BinaryReader reader = new BinaryReader ( deflate );
+			{*/
+				//using ( DeflateStream deflate = new DeflateStream ( /*crypto*/stream, CompressionLevel.Optimal, true ) )
+				//{
+					Initialize ();
+					pages.Clear ();
+
+					BinaryReader reader = new BinaryReader ( /*deflate*/stream );
 					Title = reader.ReadString ();
 					int authorCount = reader.ReadInt32 ();
 					for ( int i = 0; i < authorCount; ++i )
@@ -81,26 +88,34 @@ namespace Daramkun.dWriter
 						page.Title = reader.ReadString ();
 						page.Created = DateTime.Parse ( reader.ReadString () );
 						page.Modified = DateTime.Parse ( reader.ReadString () );
+						MemoryStream tempStream = new MemoryStream ( Encoding.UTF8.GetBytes ( reader.ReadString () ) );
 						FlowDocument flowDocument = new FlowDocument ();
 						var textRange = new TextRange ( flowDocument.ContentStart, flowDocument.ContentEnd );
-						textRange.Load ( stream, DataFormats.Xaml );
+						textRange.Load ( tempStream, DataFormats.Xaml );
 						page.Text = flowDocument;
+						tempStream.Dispose ();
+
+						pages.Add ( page );
 					}
-				}
-			}
+				//}
+			//}
 		}
 
-		public void Save ( Stream stream, string key = "dWriter" )
+		public void Save ( Stream stream/*, string key = "dWriter"*/ )
 		{
-			using ( CryptoStream crypto = new CryptoStream ( stream, new AesCryptoServiceProvider ()
+			/*using ( CryptoStream crypto = new CryptoStream ( stream, new RijndaelManaged ()
 			{
-				Key = Encoding.UTF8.GetBytes ( key ),
-				IV = Encoding.UTF8.GetBytes ( "DARAMWORLD" )
+				KeySize = 256,
+				Key = Encoding.UTF8.GetBytes ( ( "!@#$%^&*" + key + "a2w3s4e5d6r" ).PadRight ( 32 ) ),
+				Mode = CipherMode.CBC,
+				Padding = PaddingMode.PKCS7,
+				IV = new byte [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				BlockSize = 128,
 			}.CreateEncryptor (), CryptoStreamMode.Write ) )
-			{
-				using ( DeflateStream deflate = new DeflateStream ( crypto, CompressionLevel.Optimal, true ) )
-				{
-					BinaryWriter writer = new BinaryWriter ( deflate );
+			{*/
+				//using ( DeflateStream deflate = new DeflateStream ( /*crypto*/stream, CompressionLevel.Optimal, true ) )
+				//{
+					BinaryWriter writer = new BinaryWriter ( /*deflate*/stream );
 					writer.Write ( Title );
 					writer.Write ( Authors.Count );
 					foreach ( var author in Authors )
@@ -114,10 +129,31 @@ namespace Daramkun.dWriter
 						writer.Write ( page.Created.ToString () );
 						writer.Write ( page.Modified.ToString () );
 						var textRange = new TextRange ( page.Text.ContentStart, page.Text.ContentEnd );
-						textRange.Save ( stream, DataFormats.XamlPackage );
+						MemoryStream tempStream = new MemoryStream ();
+						textRange.Save ( tempStream, DataFormats.Xaml );
+						string text = Encoding.UTF8.GetString ( tempStream.ToArray () );
+						tempStream.Dispose ();
+						writer.Write ( text );
 					}
-				}
+				//}
+			//}
+		}
+
+		public void ExportToHTML ( Stream stream )
+		{
+			StreamWriter writer = new StreamWriter ( stream );
+			writer.WriteLine ( string.Format ( "<!DOCTYPE html><html><head><meta charset='utf-8'><title>{0}</title></head><body><h1>{0}</h1>", Title ) );
+			writer.WriteLine ( string.Format ( "<p>{0}</p>", Copyright ) );
+			writer.WriteLine ( string.Format ( "<p>Author: {0}</p>", string.Join ( ", ", Authors ) ) );
+
+			foreach ( var page in Pages )
+			{
+				writer.WriteLine ( string.Format ( "<hr><h2>{0}</h2>", page.Title ) );
+				var textRange = new TextRange ( page.Text.ContentStart, page.Text.ContentEnd );
+				textRange.Save ( stream, DataFormats.Html );
 			}
+
+			writer.WriteLine ( "</body></html>" );
 		}
 
 		public void AddPage ( int index = -1 )

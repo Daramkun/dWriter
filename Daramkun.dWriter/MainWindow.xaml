@@ -128,12 +128,12 @@
 					</Button.ToolTip>
 					<Button.ContextMenu>
 						<ContextMenu Background="AliceBlue">
-							<MenuItem Header="Export to PDF file" Click="MenuItem_Export_PDF">
+							<MenuItem Header="Export to PDF file" Click="MenuItem_Export_PDF" IsEnabled="False">
 								<MenuItem.Icon>
 									<Image Source="/Resources/page_white_acrobat.png" />
 								</MenuItem.Icon>
 							</MenuItem>
-							<MenuItem Header="Export to DOCX file" Click="MenuItem_Export_DOCX">
+							<MenuItem Header="Export to DOCX file" Click="MenuItem_Export_DOCX" IsEnabled="False">
 								<MenuItem.Icon>
 									<Image Source="/Resources/page_white_word.png" />
 								</MenuItem.Icon>
@@ -143,12 +143,12 @@
 									<Image Source="/Resources/page_white_world.png" />
 								</MenuItem.Icon>
 							</MenuItem>
-							<MenuItem Header="Export to TXT file" Click="MenuItem_Export_TXT">
+							<MenuItem Header="Export to TXT file" Click="MenuItem_Export_TXT" IsEnabled="False">
 								<MenuItem.Icon>
 									<Image Source="/Resources/page_white_text.png" />
 								</MenuItem.Icon>
 							</MenuItem>
-							<MenuItem Header="Export to ZIP file" Click="MenuItem_Export_ZIP">
+							<MenuItem Header="Export to ZIP file" Click="MenuItem_Export_ZIP" IsEnabled="False">
 								<MenuItem.Icon>
 									<Image Source="/Resources/page_white_compressed.png" />
 								</MenuItem.Icon>

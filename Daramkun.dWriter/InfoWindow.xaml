@@ -1,0 +1,8 @@
+﻿<Window x:Class="Daramkun.dWriter.InfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Document Information" Height="300" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" ShowInTaskbar="False" Topmost="True" WindowStyle="ToolWindow">
+    <Grid Margin="5">
+        
+    </Grid>
+</Window>

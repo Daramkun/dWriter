@@ -232,7 +232,7 @@ namespace Daramkun.dWriter
 
 		private void Button_EditDocInfo_Click ( object sender, RoutedEventArgs e )
 		{
-
+			new InfoWindow ().ShowDialog ();
 		}
 
 		private void Button_Export_Click ( object sender, RoutedEventArgs e )
@@ -255,7 +255,12 @@ namespace Daramkun.dWriter
 
 		private void MenuItem_Export_HTML ( object sender, RoutedEventArgs e )
 		{
+			OpenFileDialog openFileDialog = new OpenFileDialog ();
+			openFileDialog.Filter = "HTML file (*.html;*.htm)|*.html;*.htm";
+			if ( openFileDialog.ShowDialog ( this ) == true )
+			{
 
+			}
 		}
 
 		private void MenuItem_Export_TXT ( object sender, RoutedEventArgs e )
