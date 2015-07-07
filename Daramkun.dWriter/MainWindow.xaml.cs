@@ -255,22 +255,24 @@ namespace Daramkun.dWriter
 
 		private void MenuItem_Export_HTML ( object sender, RoutedEventArgs e )
 		{
-			OpenFileDialog openFileDialog = new OpenFileDialog ();
-			openFileDialog.Filter = "HTML file (*.html;*.htm)|*.html;*.htm";
-			if ( openFileDialog.ShowDialog ( this ) == true )
+			SaveFileDialog saveFileDialog = new SaveFileDialog ();
+			saveFileDialog.Filter = "HTML file (*.html;*.htm)|*.html;*.htm";
+			if ( saveFileDialog.ShowDialog ( this ) == true )
 			{
-
+				using ( FileStream stream = new FileStream ( saveFileDialog.FileName, FileMode.Create, FileAccess.Write ) )
+					document.ExportToHTML ( stream );
 			}
 		}
 
 		private void MenuItem_Export_TXT ( object sender, RoutedEventArgs e )
 		{
-
-		}
-
-		private void MenuItem_Export_ZIP ( object sender, RoutedEventArgs e )
-		{
-
+			SaveFileDialog saveFileDialog = new SaveFileDialog ();
+			saveFileDialog.Filter = "Text file (*.txt)|*.txt";
+			if ( saveFileDialog.ShowDialog ( this ) == true )
+			{
+				using ( FileStream stream = new FileStream ( saveFileDialog.FileName, FileMode.Create, FileAccess.Write ) )
+					document.ExportToTXT ( stream );
+			}
 		}
 
 		private void listPages_SelectionChanged ( object sender, SelectionChangedEventArgs e )

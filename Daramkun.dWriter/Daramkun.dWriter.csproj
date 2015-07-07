@@ -84,6 +84,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RtfToHtmlConverter\htmlcssparser.cs" />
+    <Compile Include="RtfToHtmlConverter\htmlfromxamlconverter.cs" />
+    <Compile Include="RtfToHtmlConverter\htmllexicalanalyzer.cs" />
+    <Compile Include="RtfToHtmlConverter\htmlparser.cs" />
+    <Compile Include="RtfToHtmlConverter\htmlschema.cs" />
+    <Compile Include="RtfToHtmlConverter\htmltokentype.cs" />
+    <Compile Include="RtfToHtmlConverter\HtmlToRtfConverter.cs" />
+    <Compile Include="RtfToHtmlConverter\htmltoxamlconverter.cs" />
+    <Compile Include="RtfToHtmlConverter\MarkupConverter.cs" />
+    <Compile Include="RtfToHtmlConverter\RtfToHtmlConverter.cs" />
     <Page Include="InfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -166,9 +176,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\page_white_acrobat.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\page_white_compressed.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\page_white_text.png" />

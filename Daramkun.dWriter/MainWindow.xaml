@@ -143,14 +143,9 @@
 									<Image Source="/Resources/page_white_world.png" />
 								</MenuItem.Icon>
 							</MenuItem>
-							<MenuItem Header="Export to TXT file" Click="MenuItem_Export_TXT" IsEnabled="False">
+							<MenuItem Header="Export to TXT file" Click="MenuItem_Export_TXT">
 								<MenuItem.Icon>
 									<Image Source="/Resources/page_white_text.png" />
-								</MenuItem.Icon>
-							</MenuItem>
-							<MenuItem Header="Export to ZIP file" Click="MenuItem_Export_ZIP" IsEnabled="False">
-								<MenuItem.Icon>
-									<Image Source="/Resources/page_white_compressed.png" />
 								</MenuItem.Icon>
 							</MenuItem>
 						</ContextMenu>

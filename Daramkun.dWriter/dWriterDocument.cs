@@ -91,7 +91,7 @@ namespace Daramkun.dWriter
 						MemoryStream tempStream = new MemoryStream ( Encoding.UTF8.GetBytes ( reader.ReadString () ) );
 						FlowDocument flowDocument = new FlowDocument ();
 						var textRange = new TextRange ( flowDocument.ContentStart, flowDocument.ContentEnd );
-						textRange.Load ( tempStream, DataFormats.Xaml );
+						textRange.Load ( tempStream, DataFormats.Rtf );
 						page.Text = flowDocument;
 						tempStream.Dispose ();
 
@@ -130,7 +130,7 @@ namespace Daramkun.dWriter
 						writer.Write ( page.Modified.ToString () );
 						var textRange = new TextRange ( page.Text.ContentStart, page.Text.ContentEnd );
 						MemoryStream tempStream = new MemoryStream ();
-						textRange.Save ( tempStream, DataFormats.Xaml );
+						textRange.Save ( tempStream, DataFormats.Rtf );
 						string text = Encoding.UTF8.GetString ( tempStream.ToArray () );
 						tempStream.Dispose ();
 						writer.Write ( text );
@@ -143,17 +143,55 @@ namespace Daramkun.dWriter
 		{
 			StreamWriter writer = new StreamWriter ( stream );
 			writer.WriteLine ( string.Format ( "<!DOCTYPE html><html><head><meta charset='utf-8'><title>{0}</title></head><body><h1>{0}</h1>", Title ) );
-			writer.WriteLine ( string.Format ( "<p>{0}</p>", Copyright ) );
-			writer.WriteLine ( string.Format ( "<p>Author: {0}</p>", string.Join ( ", ", Authors ) ) );
+			writer.WriteLine ( string.Format ( "<p>{0}</p>", Copyright.Replace ( "<", "&lt;" ).Replace ( ">", "&gt;" ) ) );
+			writer.WriteLine ( string.Format ( "<p>Author: {0}</p>", string.Join ( ", ", Authors ).Replace ( "<", "&lt;" ).Replace ( ">", "&gt;" ) ) );
 
+			writer.Flush ();
+
+			var markupConverter = new MarkupConverter.MarkupConverter ();
 			foreach ( var page in Pages )
 			{
-				writer.WriteLine ( string.Format ( "<hr><h2>{0}</h2>", page.Title ) );
+				writer.WriteLine ( string.Format ( "<hr><h2>{0}</h2>", page.Title.Replace ( "<", "&lt;" ).Replace ( ">", "&gt;" ) ) );
 				var textRange = new TextRange ( page.Text.ContentStart, page.Text.ContentEnd );
-				textRange.Save ( stream, DataFormats.Html );
+				MemoryStream tempStream = new MemoryStream ();
+				textRange.Save ( tempStream, DataFormats.Rtf );
+				var rtf = Encoding.UTF8.GetString ( tempStream.ToArray () );
+				tempStream.Dispose ();
+				var html = markupConverter.ConvertRtfToHtml ( rtf );
+				writer.WriteLine ( html );
+
+				writer.Flush ();
 			}
 
 			writer.WriteLine ( "</body></html>" );
+			writer.Flush ();
+		}
+
+		public void ExportToTXT ( Stream stream )
+		{
+			StreamWriter writer = new StreamWriter ( stream );
+			writer.WriteLine ( Title );
+			writer.WriteLine ( Copyright );
+			writer.WriteLine ( string.Format ( "Author: {0}", string.Join ( ", ", Authors ) ) );
+			writer.WriteLine ();
+
+			writer.Flush ();
+
+			foreach ( var page in Pages )
+			{
+				writer.WriteLine ( "================" );
+				writer.WriteLine ( page.Title );
+				writer.WriteLine ( "================" );
+				MemoryStream tempStream = new MemoryStream ();
+				var textRange = new TextRange ( page.Text.ContentStart, page.Text.ContentEnd );
+				textRange.Save ( tempStream, DataFormats.Text );
+				string text = Encoding.UTF8.GetString ( tempStream.ToArray () );
+				tempStream.Dispose ();
+				writer.Write ( text );
+				writer.WriteLine ();
+
+				writer.Flush ();
+			}
 		}
 
 		public void AddPage ( int index = -1 )
