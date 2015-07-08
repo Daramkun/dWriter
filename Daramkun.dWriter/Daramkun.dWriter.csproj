@@ -71,10 +71,6 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="TaskDialogLib, Version=1.1.0.0, Culture=neutral, PublicKeyToken=8d1aed4b4c06c9a8, processorArchitecture=MSIL">
-      <HintPath>..\packages\TaskDialogLib.1.1.0.0\lib\net40\TaskDialogLib.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -94,6 +90,31 @@
     <Compile Include="RtfToHtmlConverter\htmltoxamlconverter.cs" />
     <Compile Include="RtfToHtmlConverter\MarkupConverter.cs" />
     <Compile Include="RtfToHtmlConverter\RtfToHtmlConverter.cs" />
+    <Compile Include="TaskDialogLib\ExternDll.cs" />
+    <Compile Include="TaskDialogLib\IconHandle.cs" />
+    <Compile Include="TaskDialogLib\ITaskDialogHost.cs" />
+    <Compile Include="TaskDialogLib\NativeMethods.cs" />
+    <Compile Include="TaskDialogLib\TaskDialog.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogButton.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogButtonBase.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogButtons.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogButtonStyle.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogCollection.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogElement.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogElementCollection.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogIcon.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogLink.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogProgressBar.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogProgressBarState.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogProgressBarStyle.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogRadioButton.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogResult.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogRun.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogState.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogText.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogTextElement.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogTextElementCollection.cs" />
+    <Compile Include="TaskDialogLib\TaskDialogTimerEventArgs.cs" />
     <Page Include="InfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -143,7 +164,6 @@
     </EmbeddedResource>
     <None Include="dWriter.manifest" />
     <None Include="dWriter.pfx" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -199,9 +219,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\MainIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="License.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
