@@ -37,6 +37,7 @@ namespace Daramkun.dWriter
 			InitializeComponent ();
 
 			listPages.ItemsSource = document.Pages;
+			listPages.SelectedIndex = 0;
 		}
 
 		private void Window_Closing ( object sender, System.ComponentModel.CancelEventArgs e )
@@ -148,7 +149,13 @@ namespace Daramkun.dWriter
 					savedPath = openFileDialog.FileName;
 					isSaved = true;
 				}
-				catch { savedPath = null; isSaved = true; }
+				catch 
+				{
+					savedPath = null;
+					isSaved = true;
+
+					TaskDialog.ShowModal ( this, "Loading fail!", "This file is invalid.", "ERROR", TaskDialogButtons.OK, TaskDialogIcon.Error );
+				}
 			}
 		}
 
@@ -245,7 +252,15 @@ namespace Daramkun.dWriter
 
 		private void Button_EditDocInfo_Click ( object sender, RoutedEventArgs e )
 		{
-			new InfoWindow ().ShowDialog ();
+			var infoWindow = new InfoWindow ( document );
+			if ( infoWindow.ShowDialog () == true )
+			{
+				document.Title = infoWindow.DocumentTitle;
+				document.Copyright = infoWindow.Copyright;
+				document.Authors.Clear ();
+				foreach ( var author in infoWindow.Authors )
+					document.Authors.Add ( author );
+			}
 		}
 
 		private void Button_Export_Click ( object sender, RoutedEventArgs e )

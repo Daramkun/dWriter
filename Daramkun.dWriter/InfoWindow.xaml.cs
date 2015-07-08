@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,40 @@ namespace Daramkun.dWriter
 	/// </summary>
 	public partial class InfoWindow : Window
 	{
-		public InfoWindow ()
+		public string DocumentTitle { get { return textBoxTitle.Text; } }
+		public string Copyright { get { return textBoxCopyright.Text; } }
+		public ObservableCollection<string> Authors { get { return listBoxAuthor.ItemsSource as ObservableCollection<string>; } }
+
+		public InfoWindow ( dWriterDocument document )
 		{
 			InitializeComponent ();
+
+			textBoxTitle.Text = document.Title;
+			textBoxCopyright.Text = document.Copyright;
+			listBoxAuthor.ItemsSource = new ObservableCollection<string> ( document.Authors );
+		}
+
+		private void Button_Add_Author_Click ( object sender, RoutedEventArgs e )
+		{
+			if ( textBoxAuthor.Text.Trim () == "" ) return;
+			( listBoxAuthor.ItemsSource as ObservableCollection<string> ).Add ( textBoxAuthor.Text );
+			textBoxAuthor.Text = "";
+		}
+
+		private void Button_Del_Author_Click ( object sender, RoutedEventArgs e )
+		{
+			if ( listBoxAuthor.SelectedItem == null ) return;
+			( listBoxAuthor.ItemsSource as ObservableCollection<string> ).Remove ( listBoxAuthor.SelectedItem as string );
+		}
+
+		private void Button_Apply_Click ( object sender, RoutedEventArgs e )
+		{
+			DialogResult = true;
+		}
+
+		private void Button_Cancel_Click ( object sender, RoutedEventArgs e )
+		{
+			DialogResult = false;
 		}
 	}
 }
