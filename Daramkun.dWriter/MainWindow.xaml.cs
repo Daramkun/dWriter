@@ -161,7 +161,6 @@ namespace Daramkun.dWriter
 
 		private void Button_Save_Click ( object sender, RoutedEventArgs e )
 		{
-			if ( isSaved ) return;
 			if ( savedPath == null )
 			{
 				SaveFileDialog saveFileDialog = new SaveFileDialog ();
