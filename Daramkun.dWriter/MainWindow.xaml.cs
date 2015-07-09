@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -239,6 +240,9 @@ namespace Daramkun.dWriter
 		{
 			document.AddPage ( listPages.SelectedIndex );
 			isSaved = false;
+
+			ICollectionView view = CollectionViewSource.GetDefaultView ( listPages.ItemsSource );
+			view.Refresh ();
 		}
 
 		private void Button_DeletePage_Click ( object sender, RoutedEventArgs e )
@@ -247,6 +251,9 @@ namespace Daramkun.dWriter
 
 			document.RemovePage ( listPages.SelectedItem as dWriterPage );
 			isSaved = false;
+
+			ICollectionView view = CollectionViewSource.GetDefaultView ( listPages.ItemsSource );
+			view.Refresh ();
 		}
 
 		private void Button_EditDocInfo_Click ( object sender, RoutedEventArgs e )
@@ -275,9 +282,15 @@ namespace Daramkun.dWriter
 
 		}
 
-		private void MenuItem_Export_DOCX ( object sender, RoutedEventArgs e )
+		private void MenuItem_Export_RTF ( object sender, RoutedEventArgs e )
 		{
-
+			SaveFileDialog saveFileDialog = new SaveFileDialog ();
+			saveFileDialog.Filter = "RTF file (*.rtf)|*.rtf";
+			if ( saveFileDialog.ShowDialog ( this ) == true )
+			{
+				using ( FileStream stream = new FileStream ( saveFileDialog.FileName, FileMode.Create, FileAccess.Write ) )
+					document.ExportToRTF ( stream );
+			}
 		}
 
 		private void MenuItem_Export_HTML ( object sender, RoutedEventArgs e )

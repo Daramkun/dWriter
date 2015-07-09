@@ -194,6 +194,55 @@ namespace Daramkun.dWriter
 			}
 		}
 
+		public void ExportToRTF ( Stream stream )
+		{
+			FlowDocument tempDocument = new FlowDocument ();
+
+			var titleParagraph = new Paragraph ( new Run ( Title ) );
+			titleParagraph.TextAlignment = TextAlignment.Center;
+			titleParagraph.FontSize = 32;
+			tempDocument.Blocks.Add ( titleParagraph );
+
+			var copyrightParagraph = new Paragraph ( new Run ( Copyright ) );
+			copyrightParagraph.TextAlignment = TextAlignment.Center;
+			copyrightParagraph.FontSize = 16;
+			tempDocument.Blocks.Add ( copyrightParagraph );
+
+			var authorsParagraph = new Paragraph ( new Run ( string.Format ( "Author: {0}", string.Join ( ", ", Authors ) ) ) );
+			authorsParagraph.TextAlignment = TextAlignment.Center;
+			tempDocument.Blocks.Add ( authorsParagraph );
+
+			foreach ( var page in Pages )
+			{
+				var section = new Section ();
+
+				var pageTitleParagraph = new Paragraph ( new Run ( page.Title ) );
+				pageTitleParagraph.FontSize = 24;
+				section.Blocks.Add ( pageTitleParagraph );
+
+				var pageTempParagraph = new Paragraph ( new Run () );
+				section.Blocks.Add ( pageTempParagraph );
+
+				TextRange range = new TextRange ( page.Text.ContentStart, page.Text.ContentEnd );
+				MemoryStream tempStream = new MemoryStream ();
+				System.Windows.Markup.XamlWriter.Save ( range, tempStream );
+				range.Save ( tempStream, DataFormats.XamlPackage );
+				TextRange range2 = new TextRange ( section.ContentEnd, section.ContentEnd );
+				range2.Load ( tempStream, DataFormats.XamlPackage );
+
+				tempDocument.Blocks.Add ( section );
+			}
+
+			StreamWriter writer = new StreamWriter ( stream );
+			MemoryStream tempStream2 = new MemoryStream ();
+			var textRange = new TextRange ( tempDocument.ContentStart, tempDocument.ContentEnd );
+			textRange.Save ( tempStream2, DataFormats.Rtf );
+			string text = Encoding.UTF8.GetString ( tempStream2.ToArray () );
+			tempStream2.Dispose ();
+			writer.Write ( text );
+			writer.Flush ();
+		}
+
 		public void AddPage ( int index = -1 )
 		{
 			if ( index == -1 ) pages.Add ( new dWriterPage () { Title = "New Page" } );
