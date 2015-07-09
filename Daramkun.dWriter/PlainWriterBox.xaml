@@ -8,8 +8,9 @@
 				 Padding="8" FontFamily="Batang" FontSize="14" InputMethod.PreferredImeConversionMode="Native">
 		<RichTextBox.Resources>
 			<Style TargetType="{x:Type Paragraph}">
-				<Setter Property="TextIndent" Value="10"/>
-				<Setter Property="LineHeight" Value="8"/>
+				<Setter Property="TextIndent" Value="10" />
+				<Setter Property="LineHeight" Value="10" />
+				<Setter Property="Margin" Value="0,0,0,8" />
 			</Style>
 		</RichTextBox.Resources>
 	</RichTextBox>

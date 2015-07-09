@@ -28,6 +28,13 @@ namespace Daramkun.dWriter
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
+	public enum EncryptType
+	{
+		None,
+		AES256,
+		RSA,
+	}
+
 	public class dWriterDocument : INotifyPropertyChanged
 	{
 		string _title, _copyright;
@@ -57,65 +64,56 @@ namespace Daramkun.dWriter
 			AddPage ();
 		}
 
-		public void Load ( Stream stream/*, string key = "dWriter"*/ )
+		public void Load ( Stream stream )
 		{
-			/*using ( CryptoStream crypto = new CryptoStream ( stream, new RijndaelManaged ()
+			using ( SignatureStream signature = new SignatureStream ( "DWRT", stream ) )
 			{
-				KeySize = 256,
-				Key = Encoding.UTF8.GetBytes ( ( "!@#$%^&*" + key + "a2w3s4e5d6r" ).PadRight ( 32 ) ),
-				Mode = CipherMode.CBC,
-				Padding = PaddingMode.PKCS7,
-				IV = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				BlockSize = 128,
-			}.CreateDecryptor (), CryptoStreamMode.Read ) )
-			{*/
-				//using ( DeflateStream deflate = new DeflateStream ( /*crypto*/stream, CompressionLevel.Optimal, true ) )
-				//{
+				using ( DeflateStream deflate = new DeflateStream ( stream, CompressionMode.Decompress, true ) )
+				{
 					Initialize ();
 					pages.Clear ();
 
-					BinaryReader reader = new BinaryReader ( /*deflate*/stream );
-					Title = reader.ReadString ();
-					int authorCount = reader.ReadInt32 ();
-					for ( int i = 0; i < authorCount; ++i )
-						Authors.Add ( reader.ReadString () );
-					Copyright = reader.ReadString ();
-
-					int pageCount = reader.ReadInt32 ();
-					for ( int i = 0; i < pageCount; ++i )
+					BinaryReader reader = new BinaryReader ( deflate );
+					switch ( reader.ReadByte () )
 					{
-						dWriterPage page = new dWriterPage ();
-						page.Title = reader.ReadString ();
-						page.Created = DateTime.Parse ( reader.ReadString () );
-						page.Modified = DateTime.Parse ( reader.ReadString () );
-						MemoryStream tempStream = new MemoryStream ( Encoding.UTF8.GetBytes ( reader.ReadString () ) );
-						FlowDocument flowDocument = new FlowDocument ();
-						var textRange = new TextRange ( flowDocument.ContentStart, flowDocument.ContentEnd );
-						textRange.Load ( tempStream, DataFormats.Rtf );
-						page.Text = flowDocument;
-						tempStream.Dispose ();
+						case 0:
+							Title = reader.ReadString ();
+							int authorCount = reader.ReadInt32 ();
+							for ( int i = 0; i < authorCount; ++i )
+								Authors.Add ( reader.ReadString () );
+							Copyright = reader.ReadString ();
 
-						pages.Add ( page );
+							int pageCount = reader.ReadInt32 ();
+							for ( int i = 0; i < pageCount; ++i )
+							{
+								dWriterPage page = new dWriterPage ();
+								page.Title = reader.ReadString ();
+								page.Created = DateTime.Parse ( reader.ReadString () );
+								page.Modified = DateTime.Parse ( reader.ReadString () );
+								MemoryStream tempStream = new MemoryStream ( Encoding.UTF8.GetBytes ( reader.ReadString () ) );
+								FlowDocument flowDocument = new FlowDocument ();
+								var textRange = new TextRange ( flowDocument.ContentStart, flowDocument.ContentEnd );
+								textRange.Load ( tempStream, DataFormats.Rtf );
+								page.Text = flowDocument;
+								tempStream.Dispose ();
+
+								pages.Add ( page );
+							}
+							break;
 					}
-				//}
-			//}
+				}
+			}
 		}
 
-		public void Save ( Stream stream/*, string key = "dWriter"*/ )
+		public void Save ( Stream stream )
 		{
-			/*using ( CryptoStream crypto = new CryptoStream ( stream, new RijndaelManaged ()
+			using ( SignatureStream signature = new SignatureStream ( "DWRT", stream ) )
 			{
-				KeySize = 256,
-				Key = Encoding.UTF8.GetBytes ( ( "!@#$%^&*" + key + "a2w3s4e5d6r" ).PadRight ( 32 ) ),
-				Mode = CipherMode.CBC,
-				Padding = PaddingMode.PKCS7,
-				IV = new byte [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				BlockSize = 128,
-			}.CreateEncryptor (), CryptoStreamMode.Write ) )
-			{*/
-				//using ( DeflateStream deflate = new DeflateStream ( /*crypto*/stream, CompressionLevel.Optimal, true ) )
-				//{
-					BinaryWriter writer = new BinaryWriter ( /*deflate*/stream );
+				using ( DeflateStream deflate = new DeflateStream ( stream, CompressionLevel.Optimal, true ) )
+				{
+					BinaryWriter writer = new BinaryWriter ( deflate );
+					writer.Write ( ( byte ) 0 );
+
 					writer.Write ( Title );
 					writer.Write ( Authors.Count );
 					foreach ( var author in Authors )
@@ -135,8 +133,8 @@ namespace Daramkun.dWriter
 						tempStream.Dispose ();
 						writer.Write ( text );
 					}
-				//}
-			//}
+				}
+			}
 		}
 
 		public void ExportToHTML ( Stream stream )

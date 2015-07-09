@@ -90,6 +90,7 @@
     <Compile Include="RtfToHtmlConverter\htmltoxamlconverter.cs" />
     <Compile Include="RtfToHtmlConverter\MarkupConverter.cs" />
     <Compile Include="RtfToHtmlConverter\RtfToHtmlConverter.cs" />
+    <Compile Include="SignatureStream.cs" />
     <Compile Include="TaskDialogLib\ExternDll.cs" />
     <Compile Include="TaskDialogLib\IconHandle.cs" />
     <Compile Include="TaskDialogLib\ITaskDialogHost.cs" />

@@ -24,7 +24,23 @@ namespace Daramkun.dWriter
 	public partial class PlainWriterBox : UserControl
 	{
 		[Bindable ( true )]
-		public FlowDocument Document { get { return textBox.Document; } set { textBox.Document = value; } }
+		public FlowDocument Document
+		{
+			get { return textBox.Document; }
+			set
+			{
+				textBox.Document = value;
+				foreach ( var block in textBox.Document.Blocks )
+				{
+					if ( block is Paragraph )
+					{
+						( block as Paragraph ).TextIndent = 10;
+						( block as Paragraph ).LineHeight = 8;
+						( block as Paragraph ).Margin = new Thickness ( 0, 0, 0, 8 );
+					}
+				}
+			}
+		}
 		[Bindable ( true )]
 		public bool IsReadOnly { get { return textBox.IsReadOnly; } set { textBox.IsReadOnly = value; } }
 
@@ -115,9 +131,15 @@ namespace Daramkun.dWriter
 					{
 						Paragraph prev = GetPreviousParagraph ( textBox.Selection.Start.Paragraph );
 						new TextRange ( prev.ContentEnd, textBox.Selection.Start ).Text = "";
+						textBox.Selection.Start.Paragraph.TextIndent = 10;
+						textBox.Selection.Start.Paragraph.LineHeight = 8;
 					}
 					else
+					{
 						( textBox.Document.Blocks.First () as Paragraph ).TextIndent = 10;
+						( textBox.Document.Blocks.First () as Paragraph ).LineHeight = 10;
+						( textBox.Document.Blocks.First () as Paragraph ).Margin = new Thickness ( 0, 0, 0, 8 );
+					}
 				}
 			}
 		}
