@@ -104,6 +104,8 @@ namespace Daramkun.dWriter
 
 			isSaved = true;
 			savedPath = null;
+
+			listPages.SelectedIndex = -1;
 		}
 
 		private void Button_Open_Click ( object sender, RoutedEventArgs e )
@@ -149,6 +151,8 @@ namespace Daramkun.dWriter
 					Title = document.Title + " - DARAM WORLD dWriter";
 					savedPath = openFileDialog.FileName;
 					isSaved = true;
+
+					listPages.SelectedIndex = -1;
 				}
 				catch 
 				{
