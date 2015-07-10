@@ -259,11 +259,15 @@ namespace Daramkun.dWriter
 		{
 			if ( listPages.SelectedItem == null ) return;
 
-			document.RemovePage ( listPages.SelectedItem as dWriterPage );
-			isSaved = false;
+			if ( TaskDialog.ShowModal ( this, "Are you really want to delete this page?", "If you deleted this, you cannot restore.",
+				"Delete page", TaskDialogButtons.YesNo, TaskDialogIcon.Warning ).SelectedButton == 6 )
+			{
+				document.RemovePage ( listPages.SelectedItem as dWriterPage );
+				isSaved = false;
 
-			ICollectionView view = CollectionViewSource.GetDefaultView ( listPages.ItemsSource );
-			view.Refresh ();
+				ICollectionView view = CollectionViewSource.GetDefaultView ( listPages.ItemsSource );
+				view.Refresh ();	
+			}
 		}
 
 		private void Button_EditDocInfo_Click ( object sender, RoutedEventArgs e )
