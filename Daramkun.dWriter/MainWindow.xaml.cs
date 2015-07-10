@@ -270,6 +270,8 @@ namespace Daramkun.dWriter
 				document.Authors.Clear ();
 				foreach ( var author in infoWindow.Authors )
 					document.Authors.Add ( author );
+
+				Title = document.Title + " - DARAM WORLD dWriter";
 			}
 		}
 
