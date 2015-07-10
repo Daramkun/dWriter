@@ -28,6 +28,7 @@ namespace Daramkun.dWriter
 		bool isSaved = true;
 		string savedPath = null;
 
+		public static RoutedCommand CommandNewFile = new RoutedCommand ();
 		public static RoutedCommand CommandOpenFile = new RoutedCommand ();
 		public static RoutedCommand CommandSaveFile = new RoutedCommand ();
 
@@ -178,6 +179,11 @@ namespace Daramkun.dWriter
 			using ( FileStream stream = new FileStream ( savedPath, FileMode.Create, FileAccess.Write ) )
 				document.Save ( stream );
 			isSaved = true;
+		}
+
+		private void commandNewFile_Executed ( object sender, ExecutedRoutedEventArgs e )
+		{
+			Button_New_Click ( sender, e );
 		}
 
 		private void commandOpenFile_Executed ( object sender, ExecutedRoutedEventArgs e )

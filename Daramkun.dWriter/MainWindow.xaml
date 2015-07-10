@@ -202,6 +202,21 @@
 						</GridViewColumn>
 					</GridView>
 				</ListView.View>
+				
+				<ListView.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="Add Page" Click="Button_AddPage_Click">
+							<MenuItem.Icon>
+								<Image Source="Resources/page_white_add.png" />
+							</MenuItem.Icon>
+						</MenuItem>
+						<MenuItem Header="Delete Page" Click="Button_DeletePage_Click">
+							<MenuItem.Icon>
+								<Image Source="Resources/page_white_delete.png" />
+							</MenuItem.Icon>
+						</MenuItem>
+					</ContextMenu>
+				</ListView.ContextMenu>
 			</ListView>
 			
 			<GridSplitter Grid.Column="1" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" Background="AliceBlue"
@@ -256,11 +271,13 @@
     </Grid>
 
 	<Window.CommandBindings>
+		<CommandBinding Command="{x:Static dWriter:MainWindow.CommandNewFile}" Executed="commandNewFile_Executed" />
 		<CommandBinding Command="{x:Static dWriter:MainWindow.CommandOpenFile}" Executed="commandOpenFile_Executed" />
 		<CommandBinding Command="{x:Static dWriter:MainWindow.CommandSaveFile}" Executed="commandSaveFile_Executed" />
 	</Window.CommandBindings>
 
 	<Window.InputBindings>
+		<KeyBinding Key="N" Modifiers="Control" Command="{x:Static dWriter:MainWindow.CommandNewFile}" />
 		<KeyBinding Key="O" Modifiers="Control" Command="{x:Static dWriter:MainWindow.CommandOpenFile}" />
 		<KeyBinding Key="S" Modifiers="Control" Command="{x:Static dWriter:MainWindow.CommandSaveFile}" />
 		</Window.InputBindings>
