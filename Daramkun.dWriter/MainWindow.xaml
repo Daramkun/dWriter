@@ -266,9 +266,7 @@
 			<Separator Background="LightGray" />
 			<TextBlock Text=".NET Framework 4.5" />
 			<Separator Background="LightGray" />
-			<TextBlock Text="Windows Presentation Foundation" />
-			<Separator Background="LightGray" />
-			<TextBlock Text="Windows 7/8/8.1/10" />
+			<TextBlock Text="WPF" />
 			<Separator Background="LightGray" />
 			<TextBlock Text="Repository from GitHub" />
 			<Separator Background="LightGray" />

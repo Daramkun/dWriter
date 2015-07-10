@@ -7,13 +7,13 @@ using System.Windows;
 // 어셈블리의 일반 정보는 다음 특성 집합을 통해 제어됩니다.
 // 어셈블리와 관련된 정보를 수정하려면
 // 이 특성 값을 변경하십시오.
-[assembly: AssemblyTitle ( "Daramkun's dWriter" )]
+[assembly: AssemblyTitle ( "dWriter" )]
 [assembly: AssemblyDescription ( "Document Editor for Multi-chaptered document." )]
 [assembly: AssemblyConfiguration ( "" )]
 [assembly: AssemblyCompany ( "DARAM WORLD" )]
 [assembly: AssemblyProduct ( "dWriter" )]
 [assembly: AssemblyCopyright ( "Copyright © 2015 Daramkun" )]
-[assembly: AssemblyTrademark ( "" )]
+[assembly: AssemblyTrademark ( "DaramTools®" )]
 [assembly: AssemblyCulture ( "" )]
 
 // ComVisible을 false로 설정하면 이 어셈블리의 형식이 COM 구성 요소에 
