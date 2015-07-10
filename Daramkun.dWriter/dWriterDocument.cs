@@ -86,23 +86,24 @@ namespace Daramkun.dWriter
 							int pageCount = reader.ReadInt32 ();
 							for ( int i = 0; i < pageCount; ++i )
 							{
+								dWriterPage page = new dWriterPage ();
+								page.Title = reader.ReadString ();
+								page.Created = DateTime.Parse ( reader.ReadString () );
+								page.Modified = DateTime.Parse ( reader.ReadString () );
+
 								switch ( reader.ReadByte () )
 								{
 									case 0:
-										dWriterPage page = new dWriterPage ();
-										page.Title = reader.ReadString ();
-										page.Created = DateTime.Parse ( reader.ReadString () );
-										page.Modified = DateTime.Parse ( reader.ReadString () );
 										MemoryStream tempStream = new MemoryStream ( Encoding.UTF8.GetBytes ( reader.ReadString () ) );
 										FlowDocument flowDocument = new FlowDocument ();
 										var textRange = new TextRange ( flowDocument.ContentStart, flowDocument.ContentEnd );
 										textRange.Load ( tempStream, DataFormats.Rtf );
 										page.Text = flowDocument;
 										tempStream.Dispose ();
-
-										pages.Add ( page );
 										break;
 								}
+
+								pages.Add ( page );
 							}
 							break;
 					}

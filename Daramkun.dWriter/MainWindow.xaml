@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:dWriter="clr-namespace:Daramkun.dWriter"
 		Icon="/Resources/MainIcon.ico"
-        Title="Untitled - DARAM WORLD dWriter" Height="480" Width="640"
+        Title="Untitled - DARAM WORLD dWriter" Width="1024" Height="768"
 		MinWidth="1024" MinHeight="768" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Grid>
 		<Grid.RowDefinitions>
@@ -260,6 +260,10 @@
 		</Grid>
 		
 		<StatusBar Grid.Row="2" Background="AliceBlue">
+			<TextBlock Text="Pre-released version" Foreground="DarkRed" />
+			<!-- <TextBlock Text="Official Released version" Foreground="DarkGreen" /> -->
+			<!-- <TextBlock Text="Hotfix version" Foreground="DarkBlue" /> -->
+			<Separator Background="LightGray" />
 			<TextBlock Text=".NET Framework 4.5" />
 			<Separator Background="LightGray" />
 			<TextBlock Text="Windows Presentation Foundation" />
@@ -267,6 +271,8 @@
 			<TextBlock Text="Windows 7/8/8.1/10" />
 			<Separator Background="LightGray" />
 			<TextBlock Text="Repository from GitHub" />
+			<Separator Background="LightGray" />
+			<TextBlock Text="Images from FamFamFam Silk Icons, Metro Studio" />
 		</StatusBar>
     </Grid>
 
@@ -280,5 +286,5 @@
 		<KeyBinding Key="N" Modifiers="Control" Command="{x:Static dWriter:MainWindow.CommandNewFile}" />
 		<KeyBinding Key="O" Modifiers="Control" Command="{x:Static dWriter:MainWindow.CommandOpenFile}" />
 		<KeyBinding Key="S" Modifiers="Control" Command="{x:Static dWriter:MainWindow.CommandSaveFile}" />
-		</Window.InputBindings>
+	</Window.InputBindings>
 </Window>
