@@ -107,6 +107,8 @@ namespace Daramkun.dWriter
 								BitmapImage bitmap = new BitmapImage ( new Uri ( temp [ i ] ) );
 								Image image = new Image ();
 								image.Source = bitmap;
+								if ( bitmap.Width > 640 )
+									image.Width = 640;
 								para.Inlines.Add ( image );
 								FlowDocument doc = new FlowDocument ();
 								doc.Blocks.Add ( para );
@@ -503,6 +505,8 @@ namespace Daramkun.dWriter
 						BitmapImage bitmap = new BitmapImage ( new Uri ( data ) );
 						Image image = new Image ();
 						image.Source = bitmap;
+						if ( bitmap.Width > 640 )
+							image.Width = 640;
 						para.Inlines.Add ( image );
 						textBoxText.Document.Blocks.Add ( para );
 

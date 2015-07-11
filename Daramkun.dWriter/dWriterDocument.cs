@@ -94,7 +94,7 @@ namespace Daramkun.dWriter
 								switch ( reader.ReadByte () )
 								{
 									case 0:
-										MemoryStream tempStream = new MemoryStream ( Encoding.UTF8.GetBytes ( reader.ReadString () ) );
+										MemoryStream tempStream = new MemoryStream ( Convert.FromBase64String ( reader.ReadString () ) );
 										FlowDocument flowDocument = new FlowDocument ();
 										var textRange = new TextRange ( flowDocument.ContentStart, flowDocument.ContentEnd );
 										textRange.Load ( tempStream, DataFormats.Rtf );
@@ -129,14 +129,14 @@ namespace Daramkun.dWriter
 					writer.Write ( Pages.Count );
 					foreach ( var page in Pages )
 					{
-						writer.Write ( ( byte ) 0 );
 						writer.Write ( page.Title );
 						writer.Write ( page.Created.ToString () );
 						writer.Write ( page.Modified.ToString () );
+						writer.Write ( ( byte ) 0 );
 						var textRange = new TextRange ( page.Text.ContentStart, page.Text.ContentEnd );
 						MemoryStream tempStream = new MemoryStream ();
 						textRange.Save ( tempStream, DataFormats.Rtf );
-						string text = Encoding.UTF8.GetString ( tempStream.ToArray () );
+						string text = Convert.ToBase64String ( tempStream.ToArray () );
 						tempStream.Dispose ();
 						writer.Write ( text );
 					}
