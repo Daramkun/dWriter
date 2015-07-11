@@ -449,6 +449,8 @@ namespace Daramkun.dWriter
 					case ".jpeg":
 					case ".tif":
 					case ".tiff":
+						if ( textBoxText.IsEnabled == false ) continue;
+
 						Paragraph para = new Paragraph ();
 						BitmapImage bitmap = new BitmapImage ( new Uri ( data ) );
 						Image image = new Image ();
