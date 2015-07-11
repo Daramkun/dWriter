@@ -257,7 +257,8 @@
 					</TextBox.Style>
 				</TextBox>
 
-				<dWriter:PlainWriterBox x:Name="textBoxText" Grid.Row="1" IsReadOnly="True" Margin="0,3,0,0" TextChanged="textBoxText_TextChanged" />
+				<dWriter:PlainWriterBox x:Name="textBoxText" Grid.Row="1" IsReadOnly="True" Margin="0,3,0,0" AllowDrop="True"
+					TextChanged="textBoxText_TextChanged" PreviewDragOver="textBoxText_DragOver" PreviewDrop="textBoxText_Drop" />
 			</Grid>
 		</Grid>
 		

@@ -77,6 +77,7 @@ namespace Daramkun.dWriter
 			if ( e.Data.GetDataPresent ( DataFormats.FileDrop ) )
 			{
 				e.Effects = DragDropEffects.None;
+				e.Handled = true;
 			}
 		}
 
@@ -424,6 +425,41 @@ namespace Daramkun.dWriter
 		private void textBoxText_TextChanged ( object sender, TextChangedEventArgs e )
 		{
 			isSaved = false;
+		}
+
+		private void textBoxText_DragOver ( object sender, DragEventArgs e )
+		{
+			if ( e.Data.GetDataPresent ( DataFormats.FileDrop ) )
+			{
+				e.Effects = DragDropEffects.Copy;
+				e.Handled = true;
+			}
+		}
+
+		private void textBoxText_Drop ( object sender, DragEventArgs e )
+		{
+			foreach ( var data in e.Data.GetData ( DataFormats.FileDrop ) as string [] )
+			{
+				switch ( System.IO.Path.GetExtension ( data ).ToLower () )
+				{
+					case ".png":
+					case ".gif":
+					case ".bmp":
+					case ".jpg":
+					case ".jpeg":
+					case ".tif":
+					case ".tiff":
+						Paragraph para = new Paragraph ();
+						BitmapImage bitmap = new BitmapImage ( new Uri ( data ) );
+						Image image = new Image ();
+						image.Source = bitmap;
+						para.Inlines.Add ( image );
+						textBoxText.Document.Blocks.Add ( para );
+
+						e.Handled = true;
+						break;
+				}
+			}
 		}
 	}
 }
