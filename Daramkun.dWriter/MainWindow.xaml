@@ -267,10 +267,6 @@
 			<!-- <TextBlock Text="Official Released version" Foreground="DarkGreen" /> -->
 			<!-- <TextBlock Text="Hotfix version" Foreground="DarkBlue" /> -->
 			<Separator Background="LightGray" />
-			<TextBlock Text=".NET Framework 4.5" />
-			<Separator Background="LightGray" />
-			<TextBlock Text="WPF" />
-			<Separator Background="LightGray" />
 			<TextBlock Text="Repository from GitHub" />
 			<Separator Background="LightGray" />
 			<TextBlock Text="Images from FamFamFam Silk Icons, Metro Studio" />

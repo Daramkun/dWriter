@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -85,54 +86,101 @@ namespace Daramkun.dWriter
 		{
 			if ( e.Data.GetDataPresent ( DataFormats.FileDrop ) )
 			{
-				if ( !isSaved )
+				List<string> temp = new List<string> ( e.Data.GetData ( DataFormats.FileDrop ) as string [] );
+				for ( int i = 0; i < temp.Count; ++i )
 				{
-					var result = TaskDialog.ShowModal ( this, "Are you want to save this work?",
-						"If you don't save, Unsaved data will be lost.", "This work need to save.", TaskDialogButtons.YesNoCancel );
-
-					switch ( result.SelectedButton )
+					var ext = System.IO.Path.GetExtension ( temp [ i ] ).ToLower ();
+					if ( ext != ".dw" )
 					{
-						case 0:
-							if ( savedPath == null )
-							{
-								SaveFileDialog saveFileDialog = new SaveFileDialog ();
-								saveFileDialog.Filter = "dWriter file (*.dw)|*.dw";
-								if ( saveFileDialog.ShowDialog ( this ) == true )
-									savedPath = saveFileDialog.FileName;
-								else return;
-							}
-							using ( FileStream stream = new FileStream ( savedPath, FileMode.Create, FileAccess.Write ) )
-								document.Save ( stream );
-							isSaved = true;
-							break;
+						switch ( ext )
+						{
+							case ".png":
+							case ".gif":
+							case ".bmp":
+							case ".jpg":
+							case ".jpeg":
+							case ".tif":
+							case ".tiff":
+								if ( textBoxText.IsEnabled == false ) continue;
 
-						case 2:
-							return;
+								Paragraph para = new Paragraph ();
+								BitmapImage bitmap = new BitmapImage ( new Uri ( temp [ i ] ) );
+								Image image = new Image ();
+								image.Source = bitmap;
+								para.Inlines.Add ( image );
+								FlowDocument doc = new FlowDocument ();
+								doc.Blocks.Add ( para );
+
+								document.Insert ( document.Pages.Count, new dWriterPage ()
+								{
+									Title = System.IO.Path.GetFileName ( temp [ i ] ),
+									Text = doc
+								} );
+
+								temp.RemoveAt ( i );
+								--i;
+
+								e.Handled = true;
+								break;
+						}
 					}
-				}
+					else if ( i == 0 )
+					{
+						if ( !isSaved )
+						{
+							var result = TaskDialog.ShowModal ( this, "Are you want to save this work?",
+								"If you don't save, Unsaved data will be lost.", "This work need to save.", TaskDialogButtons.YesNoCancel );
 
-				var temp = e.Data.GetData ( DataFormats.FileDrop ) as string [];
+							switch ( result.SelectedButton )
+							{
+								case 0:
+									if ( savedPath == null )
+									{
+										SaveFileDialog saveFileDialog = new SaveFileDialog ();
+										saveFileDialog.Filter = "dWriter file (*.dw)|*.dw";
+										if ( saveFileDialog.ShowDialog ( this ) == true )
+											savedPath = saveFileDialog.FileName;
+										else return;
+									}
+									using ( FileStream stream = new FileStream ( savedPath, FileMode.Create, FileAccess.Write ) )
+										document.Save ( stream );
+									isSaved = true;
+									break;
 
-				document.Initialize ();
-				Title = "Untitled - DARAM WORLD dWriter";
+								case 2:
+									return;
+							}
+						}
 
-				try
-				{
-					using ( FileStream stream = new FileStream ( temp [ 0 ], FileMode.Open, FileAccess.Read ) )
-						document.Load ( stream );
+						document.Initialize ();
+						Title = "Untitled - DARAM WORLD dWriter";
 
-					Title = document.Title + " - DARAM WORLD dWriter";
-					savedPath = temp [ 0 ];
-					isSaved = true;
+						try
+						{
+							using ( FileStream stream = new FileStream ( temp [ 0 ], FileMode.Open, FileAccess.Read ) )
+								document.Load ( stream );
 
-					listPages.SelectedIndex = -1;
-				}
-				catch
-				{
-					savedPath = null;
-					isSaved = true;
+							Title = document.Title + " - DARAM WORLD dWriter";
+							savedPath = temp [ 0 ];
+							isSaved = true;
 
-					TaskDialog.ShowModal ( this, "Loading fail!", "This file is invalid.", "ERROR", TaskDialogButtons.OK, TaskDialogIcon.Error );
+							listPages.SelectedIndex = -1;
+						}
+						catch
+						{
+							savedPath = null;
+							isSaved = true;
+
+							TaskDialog.ShowModal ( this, "Loading fail!", "This file is invalid.", "ERROR", TaskDialogButtons.OK, TaskDialogIcon.Error );
+						}
+					}
+					else
+					{
+						var process = new Process ();
+						process.StartInfo.FileName = Process.GetCurrentProcess ().StartInfo.FileName;
+						process.StartInfo.Arguments = temp [ i ];
+						process.Start ();
+					}
 				}
 			}
 		}
