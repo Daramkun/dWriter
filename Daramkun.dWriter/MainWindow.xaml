@@ -4,7 +4,9 @@
 		xmlns:dWriter="clr-namespace:Daramkun.dWriter"
 		Icon="/Resources/MainIcon.ico"
         Title="Untitled - DARAM WORLD dWriter" Width="1024" Height="768"
-		MinWidth="1024" MinHeight="768" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+		MinWidth="1024" MinHeight="768" WindowStartupLocation="CenterScreen"
+		AllowDrop="True" DragEnter="Window_DragEnter" Drop="Window_Drop"
+		Closing="Window_Closing">
     <Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="28" />

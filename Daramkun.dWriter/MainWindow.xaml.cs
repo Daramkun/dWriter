@@ -72,6 +72,70 @@ namespace Daramkun.dWriter
 			}
 		}
 
+		private void Window_DragEnter ( object sender, DragEventArgs e )
+		{
+			if ( e.Data.GetDataPresent ( DataFormats.FileDrop ) )
+			{
+				e.Effects = DragDropEffects.None;
+			}
+		}
+
+		private void Window_Drop ( object sender, DragEventArgs e )
+		{
+			if ( e.Data.GetDataPresent ( DataFormats.FileDrop ) )
+			{
+				if ( !isSaved )
+				{
+					var result = TaskDialog.ShowModal ( this, "Are you want to save this work?",
+						"If you don't save, Unsaved data will be lost.", "This work need to save.", TaskDialogButtons.YesNoCancel );
+
+					switch ( result.SelectedButton )
+					{
+						case 0:
+							if ( savedPath == null )
+							{
+								SaveFileDialog saveFileDialog = new SaveFileDialog ();
+								saveFileDialog.Filter = "dWriter file (*.dw)|*.dw";
+								if ( saveFileDialog.ShowDialog ( this ) == true )
+									savedPath = saveFileDialog.FileName;
+								else return;
+							}
+							using ( FileStream stream = new FileStream ( savedPath, FileMode.Create, FileAccess.Write ) )
+								document.Save ( stream );
+							isSaved = true;
+							break;
+
+						case 2:
+							return;
+					}
+				}
+
+				var temp = e.Data.GetData ( DataFormats.FileDrop ) as string [];
+
+				document.Initialize ();
+				Title = "Untitled - DARAM WORLD dWriter";
+
+				try
+				{
+					using ( FileStream stream = new FileStream ( temp [ 0 ], FileMode.Open, FileAccess.Read ) )
+						document.Load ( stream );
+
+					Title = document.Title + " - DARAM WORLD dWriter";
+					savedPath = temp [ 0 ];
+					isSaved = true;
+
+					listPages.SelectedIndex = -1;
+				}
+				catch
+				{
+					savedPath = null;
+					isSaved = true;
+
+					TaskDialog.ShowModal ( this, "Loading fail!", "This file is invalid.", "ERROR", TaskDialogButtons.OK, TaskDialogIcon.Error );
+				}
+			}
+		}
+
 		private void Button_New_Click ( object sender, RoutedEventArgs e )
 		{
 			if ( !isSaved )
@@ -282,6 +346,8 @@ namespace Daramkun.dWriter
 					document.Authors.Add ( author );
 
 				Title = document.Title + " - DARAM WORLD dWriter";
+
+				isSaved = false;
 			}
 		}
 
