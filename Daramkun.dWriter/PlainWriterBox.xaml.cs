@@ -87,7 +87,7 @@ namespace Daramkun.dWriter
 		{
 			textBox.Selection.ApplyPropertyValue ( Paragraph.FontWeightProperty, FontWeights.Normal );
 			textBox.Selection.ApplyPropertyValue ( Paragraph.FontStyleProperty, FontStyles.Normal );
-			textBox.Selection.ApplyPropertyValue ( Paragraph.FontSizeProperty, 14 );
+			textBox.Selection.ApplyPropertyValue ( Paragraph.FontSizeProperty, 14.0 );
 			textBox.Selection.ApplyPropertyValue ( Paragraph.TextDecorationsProperty, null );
 			textBox.Selection.ApplyPropertyValue ( Inline.BaselineAlignmentProperty, BaselineAlignment.Baseline );
 		}
