@@ -313,51 +313,61 @@ namespace Daramkun.dWriter
 
 		private void Button_TextAlign_Left_Click ( object sender, RoutedEventArgs e )
 		{
+			if ( !textBoxText.IsEnabled ) return;
 			textBoxText.SelectionToLeftAlign ();
 		}
 
 		private void Button_TextAlign_Center_Click ( object sender, RoutedEventArgs e )
 		{
+			if ( !textBoxText.IsEnabled ) return;
 			textBoxText.SelectionToCenterAlign ();
 		}
 
 		private void Button_TextAlign_Right_Click ( object sender, RoutedEventArgs e )
 		{
+			if ( !textBoxText.IsEnabled ) return;
 			textBoxText.SelectionToRightAlign ();
 		}
 
 		private void Button_TextStyle_Bold_Click ( object sender, RoutedEventArgs e )
 		{
+			if ( !textBoxText.IsEnabled ) return;
 			textBoxText.SelectionToBold ();
 		}
 
 		private void Button_TextStyle_Italic_Click ( object sender, RoutedEventArgs e )
 		{
+			if ( !textBoxText.IsEnabled ) return;
 			textBoxText.SelectionToItalic ();
 		}
 
 		private void Button_TextStyle_CancelLine_Click ( object sender, RoutedEventArgs e )
 		{
+			if ( !textBoxText.IsEnabled ) return;
 			textBoxText.SelectionToStrikethrough ();
 		}
 
 		private void Button_TextStyle_Underline_Click ( object sender, RoutedEventArgs e )
 		{
+			if ( !textBoxText.IsEnabled ) return;
 			textBoxText.SelectionToUnderline ();
 		}
 
 		private void Button_TextStyle_Superscript_Click ( object sender, RoutedEventArgs e )
 		{
+			if ( !textBoxText.IsEnabled ) return;
 			textBoxText.SelectionToSuperscript ();
 		}
 
 		private void Button_TextStyle_Subscript_Click ( object sender, RoutedEventArgs e )
 		{
+			if ( !textBoxText.IsEnabled ) return;
 			textBoxText.SelectionToSubscript ();
 		}
 
 		private void Button_TextStyle_Normal_Click ( object sender, RoutedEventArgs e )
 		{
+			if ( !textBoxText.IsEnabled ) return;
 			textBoxText.SelectionToNormal ();
 		}
 
