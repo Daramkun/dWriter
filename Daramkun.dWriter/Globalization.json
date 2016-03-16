@@ -1,0 +1,102 @@
+﻿{
+	"lang": [
+		{
+			"version": "1.0.0.0",
+			"target": "dwriter",
+			"culture": "ko-KR",
+			"author": "Daramkun",
+			"contents": {
+				"dwriter": "DARAM WORLD dWriter",
+				"untitled": "제목없음",
+				"new_page": "새 페이지",
+
+				"tb_new": "새 dWriter 문서 파일을 생성합니다.",
+				"tb_open": "기존의 dWriter 문서 파일을 불러옵니다.",
+				"tb_save": "현재 dWriter 문서 파일을 저장합니다.",
+				"tb_left_align": "선택 영역을 좌측 정렬합니다.",
+				"tb_center_align": "선택 영역을 가운데 정렬합니다.",
+				"tb_right_align": "선택 영역을 우측 정렬합니다.",
+				"tb_bold": "선택 영역을 굵게 표시합니다.",
+				"tb_italic": "선택 영역을 기울입니다.",
+				"tb_strikethrough": "선택 영역에 취소선을 그읍니다.",
+				"tb_underline": "선택 영역에 밑줄을 그읍니다.",
+				"tb_superscript": "선택 영역을 윗첨자로 만듭니다.",
+				"tb_subscript": "선택 영역을 아랫첨자로 만듭니다.",
+				"tb_no_deco": "선택 영역에 준 효과를 모두 제거합니다.",
+				"tb_add_page": "새 페이지를 생성합니다.",
+				"tb_delete_page": "페이지를 제거합니다.",
+				"tb_edit_doc_info": "문서 정보를 수정합니다.",
+				"tb_export_to": "내보내기",
+				"tb_export_to_pdf": "PDF 파일로 내보냅니다.",
+				"tb_export_to_rtf": "RTF 파일로 내보냅니다.",
+				"tb_export_to_html": "HTML 파일로 내보냅니다.",
+				"tb_export_to_txt": "TXT 파일로 내보냅니다.",
+
+				"list_no": " No",
+				"list_title": " 제목",
+
+				"title": "제목",
+				"copyright": "저작권",
+				"authors": "저자",
+				
+				"button_add": "추가",
+				"button_delete": "제거",
+				"button_apply": "적용",
+				"button_cancel": "취소",
+				
+				"version_info_prerelease": "선행 공개 버전",
+				"version_info_officialrelease": "공식 공개 버전",
+				"version_info_hotfix": "핫픽스 버전"
+			}
+		},
+		{
+			"version": "1.0.0.0",
+			"target": "dwriter",
+			"culture": "en-US",
+			"author": "Daramkun",
+			"contents": {
+				"dwriter": "DARAM WORLD dWriter",
+				"untitled": "Untitled",
+				"new_page": "New Page",
+
+				"tb_new": "Make a new dWriter Document file.",
+				"tb_open": "Open exist dWriter Document file.",
+				"tb_save": "Save current dWriter Document file.",
+				"tb_left_align": "Alignment to Left.",
+				"tb_center_align": "Alignment to Center.",
+				"tb_right_align": "Alignment to Right.",
+				"tb_bold": "Text to Bold.",
+				"tb_italic": "Text to Italic.",
+				"tb_strikethrough": "Text to Strikethrough.",
+				"tb_underline": "Text to Underline.",
+				"tb_superscript": "Text to Superscript.",
+				"tb_subscript": "Text to Subscript.",
+				"tb_no_deco": "Text to No decorations.",
+				"tb_add_page": "Add the page.",
+				"tb_delete_page": "Delete the page.",
+				"tb_edit_doc_info": "Editing Document informations.",
+				"tb_export_to": "Export to...",
+				"tb_export_to_pdf": "Export to PDF file.",
+				"tb_export_to_rtf": "Export to RTF file.",
+				"tb_export_to_html": "Export to HTML file.",
+				"tb_export_to_txt": "Export to TXT file.",
+
+				"list_no": " No",
+				"list_title": " Title",
+
+				"title": "Title",
+				"copyright": "Copyright",
+				"authors": "Authors",
+				
+				"button_add": "Add",
+				"button_delete": "Del",
+				"button_apply": "Apply",
+				"button_cancel": "Cancel",
+				
+				"version_info_prerelease": "Pre-released version",
+				"version_info_officialrelease": "Official Released version",
+				"version_info_hotfix": "Hotfix version"
+			}
+		}
+	]
+}

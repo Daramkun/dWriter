@@ -56,7 +56,7 @@ namespace Daramkun.dWriter
 
 		public void Initialize ()
 		{
-			Title = "Untitled";
+			Title = Globalizer.Strings [ "untitled" ];
 			Authors.Clear ();
 			pages.Clear ();
 			Copyright = string.Format ( "Copyright ⓒ {0} <Author> All Rights Reserved.", DateTime.Today.Year );
@@ -250,8 +250,8 @@ namespace Daramkun.dWriter
 
 		public void AddPage ( int index = -1 )
 		{
-			if ( index == -1 ) pages.Add ( new dWriterPage () { Title = "New Page" } );
-			else pages.Insert ( index + 1, new dWriterPage () { Title = "New Page" } );
+			if ( index == -1 ) pages.Add ( new dWriterPage () { Title = Globalizer.Strings [ "new_page" ] } );
+			else pages.Insert ( index + 1, new dWriterPage () { Title = Globalizer.Strings [ "new_page" ] } );
 		}
 
 		public void RemovePage ( dWriterPage page ) { pages.Remove ( page ); }

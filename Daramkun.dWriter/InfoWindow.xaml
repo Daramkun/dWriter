@@ -1,6 +1,8 @@
 ﻿<Window x:Class="Daramkun.dWriter.InfoWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:local="clr-namespace:Daramkun.dWriter"
+		DataContext="{x:Static local:Globalizer.Strings}"
         Title="Document Information" Height="260" Width="360" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" ShowInTaskbar="False" Topmost="True" WindowStyle="ToolWindow">
 	<Grid Margin="10">
 		<Grid.ColumnDefinitions>
