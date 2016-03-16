@@ -39,82 +39,82 @@
 				<Button Click="Button_TextAlign_Left_Click">
 					<Image Source="Resources/text_align_left.png" />
 					<Button.ToolTip>
-						<ToolTip Content="Alignment to Left." />
+						<ToolTip Content="{Binding Path=[tb_left_align]}" />
 					</Button.ToolTip>
 				</Button>
 				<Button Click="Button_TextAlign_Center_Click">
 					<Image Source="Resources/text_align_center.png" />
 					<Button.ToolTip>
-						<ToolTip Content="Alignment to Center." />
+						<ToolTip Content="{Binding Path=[tb_center_align]}" />
 					</Button.ToolTip>
 				</Button>
 				<Button Click="Button_TextAlign_Right_Click">
 					<Image Source="Resources/text_align_right.png" />
 					<Button.ToolTip>
-						<ToolTip Content="Alignment to Right." />
+						<ToolTip Content="{Binding Path=[tb_right_align]}" />
 					</Button.ToolTip>
 				</Button>
 				<Separator />
 				<Button Click="Button_TextStyle_Bold_Click">
 					<Image Source="Resources/text_bold.png" />
 					<Button.ToolTip>
-						<ToolTip Content="Text to Bold." />
+						<ToolTip Content="{Binding Path=[tb_bold]}" />
 					</Button.ToolTip>
 				</Button>
 				<Button Click="Button_TextStyle_Italic_Click">
 					<Image Source="Resources/text_italic.png" />
 					<Button.ToolTip>
-						<ToolTip Content="Text to Italic." />
+						<ToolTip Content="{Binding Path=[tb_italic]}" />
 					</Button.ToolTip>
 				</Button>
 				<Button Click="Button_TextStyle_CancelLine_Click">
 					<Image Source="Resources/text_strikethrough.png" />
 					<Button.ToolTip>
-						<ToolTip Content="Text to Strikethrough." />
+						<ToolTip Content="{Binding Path=[tb_strikethrough]}" />
 					</Button.ToolTip>
 				</Button>
 				<Button Click="Button_TextStyle_Underline_Click">
 					<Image Source="Resources/text_underline.png" />
 					<Button.ToolTip>
-						<ToolTip Content="Text to Underline." />
+						<ToolTip Content="{Binding Path=[tb_underline]}" />
 					</Button.ToolTip>
 				</Button>
 				<Button Click="Button_TextStyle_Superscript_Click">
 					<Image Source="Resources/text_superscript.png" />
 					<Button.ToolTip>
-						<ToolTip Content="Text to Superscript." />
+						<ToolTip Content="{Binding Path=[tb_superscript]}" />
 					</Button.ToolTip>
 				</Button>
 				<Button Click="Button_TextStyle_Subscript_Click">
 					<Image Source="Resources/text_subscript.png" />
 					<Button.ToolTip>
-						<ToolTip Content="Text to Subscript." />
+						<ToolTip Content="{Binding Path=[tb_subscript]}" />
 					</Button.ToolTip>
 				</Button>
 				<Button Click="Button_TextStyle_Normal_Click">
 					<Image Source="Resources/text_allcaps.png" />
 					<Button.ToolTip>
-						<ToolTip Content="Text to No decorations." />
+						<ToolTip Content="{Binding Path=[tb_no_deco]}" />
 					</Button.ToolTip>
 				</Button>
 				<Separator />
 				<Button Click="Button_AddPage_Click">
 					<Image Source="Resources/page_white_add.png" />
 					<Button.ToolTip>
-						<ToolTip Content="Add the page." />
+						<ToolTip Content="{Binding Path=[tb_add_page]}" />
 					</Button.ToolTip>
 				</Button>
 				<Button Click="Button_DeletePage_Click">
 					<Image Source="Resources/page_white_delete.png" />
 					<Button.ToolTip>
-						<ToolTip Content="Delete the page." />
+						<ToolTip Content="{Binding Path=[tb_delete_page]}" />
 					</Button.ToolTip>
 				</Button>
 				<Separator />
 				<Button Click="Button_EditDocInfo_Click">
 					<Image Source="Resources/report_edit.png" />
 					<Button.ToolTip>
-						<ToolTip Content="Editing Document informations." />
+						<ToolTip Content="{Binding Path=[tb_edit_doc_info]}" />
 					</Button.ToolTip>
 				</Button>
 				<Separator />
@@ -127,26 +127,26 @@
 						</StackPanel>
 					</Button.Content>
 					<Button.ToolTip>
-						<ToolTip Content="Export to..." />
+						<ToolTip Content="{Binding Path=[tb_export_to]}" />
 					</Button.ToolTip>
 					<Button.ContextMenu>
 						<ContextMenu Background="AliceBlue">
-							<MenuItem Header="Export to PDF file" Click="MenuItem_Export_PDF" IsEnabled="False">
+							<MenuItem Header="{Binding Path=[tb_export_to_pdf]}" Click="MenuItem_Export_PDF" IsEnabled="False">
 								<MenuItem.Icon>
 									<Image Source="/Resources/page_white_acrobat.png" />
 								</MenuItem.Icon>
 							</MenuItem>
-							<MenuItem Header="Export to RTF file" Click="MenuItem_Export_RTF">
+							<MenuItem Header="{Binding Path=[tb_export_to_rtf]}" Click="MenuItem_Export_RTF">
 								<MenuItem.Icon>
 									<Image Source="/Resources/page_white_word.png" />
 								</MenuItem.Icon>
 							</MenuItem>
-							<MenuItem Header="Export to HTML file" Click="MenuItem_Export_HTML">
+							<MenuItem Header="{Binding Path=[tb_export_to_html]}" Click="MenuItem_Export_HTML">
 								<MenuItem.Icon>
 									<Image Source="/Resources/page_white_world.png" />
 								</MenuItem.Icon>
 							</MenuItem>
-							<MenuItem Header="Export to TXT file" Click="MenuItem_Export_TXT">
+							<MenuItem Header="{Binding Path=[tb_export_to_txt]}" Click="MenuItem_Export_TXT">
 								<MenuItem.Icon>
 									<Image Source="/Resources/page_white_text.png" />
 								</MenuItem.Icon>
@@ -208,12 +208,12 @@
 				
 				<ListView.ContextMenu>
 					<ContextMenu>
-						<MenuItem Header="Add Page" Click="Button_AddPage_Click">
+						<MenuItem Header="{Binding Path=[cm_add_page]}" Click="Button_AddPage_Click">
 							<MenuItem.Icon>
 								<Image Source="Resources/page_white_add.png" />
 							</MenuItem.Icon>
 						</MenuItem>
-						<MenuItem Header="Delete Page" Click="Button_DeletePage_Click">
+						<MenuItem Header="{Binding Path=[cm_delete_page]}" Click="Button_DeletePage_Click">
 							<MenuItem.Icon>
 								<Image Source="Resources/page_white_delete.png" />
 							</MenuItem.Icon>

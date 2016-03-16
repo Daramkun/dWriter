@@ -16,9 +16,9 @@
 			<RowDefinition Height="28" />
 		</Grid.RowDefinitions>
 
-		<TextBlock Text="Title" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center" />
-		<TextBlock Text="Copyright" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" />
-		<TextBlock Text="Authors" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" />
+		<TextBlock Text="{Binding Path=[title]}" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+		<TextBlock Text="{Binding Path=[copyright]}" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" />
+		<TextBlock Text="{Binding Path=[authors]}" Margin="0,0,5,0" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" />
 
 		<TextBox Name="textBoxTitle" Grid.Column="1" VerticalAlignment="Center" Height="20" />
 		<TextBox Name="textBoxCopyright" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Height="20" />
@@ -33,14 +33,14 @@
 			</Grid.ColumnDefinitions>
 			
 			<TextBox Name="textBoxAuthor" Height="20" Margin="0,0,5,0" />
-			<Button Height="20" Grid.Column="1" Content="Add" IsDefault="True" Click="Button_Add_Author_Click" />
+			<Button Height="20" Grid.Column="1" Content="{Binding Path=[button_add]}" IsDefault="True" Click="Button_Add_Author_Click" />
 			<ListBox Name="listBoxAuthor" Grid.Row="1" Margin="0,5,5,5" />
-			<Button Grid.Column="1" Grid.Row="1" Content="Del" Margin="0,5,0,5" Click="Button_Del_Author_Click" />
+			<Button Grid.Column="1" Grid.Row="1" Content="{Binding Path=[button_delete]}" Margin="0,5,0,5" Click="Button_Del_Author_Click" />
 		</Grid>
 		
 		<StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" Height="20" HorizontalAlignment="Center">
-			<Button Content="Apply" Margin="0,0,5,0" Width="64" Click="Button_Apply_Click" />
-			<Button Content="Cancel" IsCancel="True" Width="64" Click="Button_Cancel_Click" />
+			<Button Content="{Binding Path=[button_apply]}" Margin="0,0,5,0" Width="64" Click="Button_Apply_Click" />
+			<Button Content="{Binding Path=[button_cancel]}" IsCancel="True" Width="64" Click="Button_Cancel_Click" />
 		</StackPanel>
 	</Grid>
 </Window>

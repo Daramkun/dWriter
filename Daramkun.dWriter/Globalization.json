@@ -27,10 +27,13 @@
 				"tb_delete_page": "페이지를 제거합니다.",
 				"tb_edit_doc_info": "문서 정보를 수정합니다.",
 				"tb_export_to": "내보내기",
-				"tb_export_to_pdf": "PDF 파일로 내보냅니다.",
-				"tb_export_to_rtf": "RTF 파일로 내보냅니다.",
-				"tb_export_to_html": "HTML 파일로 내보냅니다.",
-				"tb_export_to_txt": "TXT 파일로 내보냅니다.",
+				"tb_export_to_pdf": "PDF 파일로 내보내기",
+				"tb_export_to_rtf": "RTF 파일로 내보내기",
+				"tb_export_to_html": "HTML 파일로 내보내기",
+				"tb_export_to_txt": "TXT 파일로 내보내기",
+				
+				"cm_add_page": "새 페이지 생성",
+				"cm_delete_page": "선택 페이지 제거",
 
 				"list_no": " No",
 				"list_title": " 제목",
@@ -80,6 +83,9 @@
 				"tb_export_to_rtf": "Export to RTF file.",
 				"tb_export_to_html": "Export to HTML file.",
 				"tb_export_to_txt": "Export to TXT file.",
+				
+				"cm_add_page": "Add the page.",
+				"cm_delete_page": "Delete the page.",
 
 				"list_no": " No",
 				"list_title": " Title",
