@@ -5,6 +5,7 @@
 			"target": "dwriter",
 			"culture": "ko-KR",
 			"author": "Daramkun",
+			"contact": "daramkun@daram.pe.kr",
 			"contents": {
 				"dwriter": "DARAM WORLD dWriter",
 				"untitled": "제목없음",
@@ -49,7 +50,11 @@
 				
 				"version_info_prerelease": "선행 공개 버전",
 				"version_info_officialrelease": "공식 공개 버전",
-				"version_info_hotfix": "핫픽스 버전"
+				"version_info_hotfix": "핫픽스 버전",
+
+				"ask_from_dontsave_instruction": "이 작업을 저장하시겠습니까?",
+				"ask_from_dontsave_content": "저장하지 않으면 저장하지 않은 데이터가 소실됩니다.",
+				"ask_from_dontsave_title": "저장하지 않은 작업이 있습니다."
 			}
 		},
 		{
@@ -101,7 +106,19 @@
 				
 				"version_info_prerelease": "Pre-released version",
 				"version_info_officialrelease": "Official Released version",
-				"version_info_hotfix": "Hotfix version"
+				"version_info_hotfix": "Hotfix version",
+
+				"ask_from_dontsave_instruction": "Are you want to save this work?",
+				"ask_from_dontsave_content": "If you don't save, Unsaved data will be lost.",
+				"ask_from_dontsave_title": "This work need to save.",
+
+				"notice_loading_error_instruction": "Loading fail!",
+				"notice_loading_error_content": "This file is invalid.",
+				"notice_loading_error_title": "ERROR",
+
+				"ask_from_deletepage_instruction": "Are you really want to delete this page?",
+				"ask_from_deletepage_content": "If you deleted this, you cannot restore.",
+				"ask_from_deletepage_title": "Delete Page"
 			}
 		}
 	]

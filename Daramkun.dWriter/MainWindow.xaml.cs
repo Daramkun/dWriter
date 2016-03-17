@@ -3,18 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Flatcode.Presentation;
 using Microsoft.Win32;
 
@@ -39,6 +33,8 @@ namespace Daramkun.dWriter
 		{
 			InitializeComponent ();
 
+			ApplyTitlebar ();
+
 			listPages.ItemsSource = document.Pages;
 			listPages.SelectedIndex = 0;
 		}
@@ -47,8 +43,8 @@ namespace Daramkun.dWriter
 		{
 			if ( !isSaved )
 			{
-				var result = TaskDialog.ShowModal ( this, "Are you want to save this work?",
-					"If you don't save, Unsaved data will be lost.","This work need to save.", TaskDialogButtons.YesNoCancel );
+				var result = TaskDialog.ShowModal ( this, Globalizer.Strings[ "ask_from_dontsave_instruction" ],
+					Globalizer.Strings [ "ask_from_dontsave_content" ], Globalizer.Strings [ "ask_from_dontsave_title" ], TaskDialogButtons.YesNoCancel );
 
 				switch ( result.SelectedButton )
 				{
@@ -130,8 +126,9 @@ namespace Daramkun.dWriter
 					{
 						if ( !isSaved )
 						{
-							var result = TaskDialog.ShowModal ( this, "Are you want to save this work?",
-								"If you don't save, Unsaved data will be lost.", "This work need to save.", TaskDialogButtons.YesNoCancel );
+							var result = TaskDialog.ShowModal ( this, Globalizer.Strings [ "ask_from_dontsave_instruction" ],
+								Globalizer.Strings [ "ask_from_dontsave_content" ], Globalizer.Strings [ "ask_from_dontsave_title" ],
+								TaskDialogButtons.YesNoCancel );
 
 							switch ( result.SelectedButton )
 							{
@@ -155,14 +152,14 @@ namespace Daramkun.dWriter
 						}
 
 						document.Initialize ();
-						Title = "Untitled - DARAM WORLD dWriter";
+						ApplyTitlebar ();
 
 						try
 						{
 							using ( FileStream stream = new FileStream ( temp [ 0 ], FileMode.Open, FileAccess.Read ) )
 								document.Load ( stream );
 
-							Title = document.Title + " - DARAM WORLD dWriter";
+							ApplyTitlebar ();
 							savedPath = temp [ 0 ];
 							isSaved = true;
 
@@ -173,7 +170,9 @@ namespace Daramkun.dWriter
 							savedPath = null;
 							isSaved = true;
 
-							TaskDialog.ShowModal ( this, "Loading fail!", "This file is invalid.", "ERROR", TaskDialogButtons.OK, TaskDialogIcon.Error );
+							TaskDialog.ShowModal ( this, Globalizer.Strings [ "notice_loading_error_instruction" ], 
+								Globalizer.Strings [ "notice_loading_error_content" ], Globalizer.Strings [ "notice_loading_error_title" ],
+								TaskDialogButtons.OK, TaskDialogIcon.Error );
 						}
 					}
 					else
@@ -187,12 +186,17 @@ namespace Daramkun.dWriter
 			}
 		}
 
+		private void ApplyTitlebar ()
+		{
+			Title = $"{document.Title} - {Globalizer.Strings [ "dwriter" ]}";
+		}
+
 		private void Button_New_Click ( object sender, RoutedEventArgs e )
 		{
 			if ( !isSaved )
 			{
-				var result = TaskDialog.ShowModal ( this, "Are you want to save this work?",
-					"If you don't save, Unsaved data will be lost.", "This work need to save.", TaskDialogButtons.YesNoCancel );
+				var result = TaskDialog.ShowModal ( this, Globalizer.Strings [ "ask_from_dontsave_instruction" ],
+					Globalizer.Strings [ "ask_from_dontsave_content" ], Globalizer.Strings [ "ask_from_dontsave_title" ], TaskDialogButtons.YesNoCancel );
 
 				switch ( result.SelectedButton )
 				{
@@ -216,7 +220,7 @@ namespace Daramkun.dWriter
 			}
 
 			document.Initialize ();
-			Title = "Untitled - DARAM WORLD dWriter";
+			ApplyTitlebar ();
 
 			isSaved = true;
 			savedPath = null;
@@ -228,8 +232,8 @@ namespace Daramkun.dWriter
 		{
 			if ( !isSaved )
 			{
-				var result = TaskDialog.ShowModal ( this, "Are you want to save this work?",
-					"If you don't save, Unsaved data will be lost.", "This work need to save.", TaskDialogButtons.YesNoCancel );
+				var result = TaskDialog.ShowModal ( this, Globalizer.Strings [ "ask_from_dontsave_instruction" ],
+					Globalizer.Strings [ "ask_from_dontsave_content" ], Globalizer.Strings [ "ask_from_dontsave_title" ], TaskDialogButtons.YesNoCancel );
 
 				switch ( result.SelectedButton )
 				{
@@ -257,14 +261,14 @@ namespace Daramkun.dWriter
 			if ( openFileDialog.ShowDialog ( this ) == true )
 			{
 				document.Initialize ();
-				Title = "Untitled - DARAM WORLD dWriter";
+				ApplyTitlebar ();
 
 				try
 				{
 					using ( FileStream stream = new FileStream ( openFileDialog.FileName, FileMode.Open, FileAccess.Read ) )
 						document.Load ( stream );
 
-					Title = document.Title + " - DARAM WORLD dWriter";
+					ApplyTitlebar ();
 					savedPath = openFileDialog.FileName;
 					isSaved = true;
 
@@ -275,7 +279,9 @@ namespace Daramkun.dWriter
 					savedPath = null;
 					isSaved = true;
 
-					TaskDialog.ShowModal ( this, "Loading fail!", "This file is invalid.", "ERROR", TaskDialogButtons.OK, TaskDialogIcon.Error );
+					TaskDialog.ShowModal ( this, Globalizer.Strings [ "notice_loading_error_instruction" ],
+						Globalizer.Strings [ "notice_loading_error_content" ], Globalizer.Strings [ "notice_loading_error_title" ],
+						TaskDialogButtons.OK, TaskDialogIcon.Error );
 				}
 			}
 		}
@@ -384,8 +390,8 @@ namespace Daramkun.dWriter
 		{
 			if ( listPages.SelectedItem == null ) return;
 
-			if ( TaskDialog.ShowModal ( this, "Are you really want to delete this page?", "If you deleted this, you cannot restore.",
-				"Delete page", TaskDialogButtons.YesNo, TaskDialogIcon.Warning ).SelectedButton == 6 )
+			if ( TaskDialog.ShowModal ( this, Globalizer.Strings[ "ask_from_deletepage_instruction" ], Globalizer.Strings [ "ask_from_deletepage_content" ],
+				Globalizer.Strings [ "ask_from_deletepage_title" ], TaskDialogButtons.YesNo, TaskDialogIcon.Warning ).SelectedButton == 6 )
 			{
 				document.RemovePage ( listPages.SelectedItem as dWriterPage );
 				isSaved = false;
@@ -406,7 +412,7 @@ namespace Daramkun.dWriter
 				foreach ( var author in infoWindow.Authors )
 					document.Authors.Add ( author );
 
-				Title = document.Title + " - DARAM WORLD dWriter";
+				ApplyTitlebar ();
 
 				isSaved = false;
 			}

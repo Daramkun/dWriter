@@ -17,7 +17,7 @@ namespace Daramkun.dWriter
 	{
 		string _title;
 
-		public string Title { get { return _title; } set { _title = value; PC ( "Title" ); } }
+		public string Title { get { return _title; } set { _title = value; PC ( nameof ( Title ) ); } }
 		public FlowDocument Text { get; set; }
 		public DateTime Created { get; set; }
 		public DateTime Modified { get; set; }
@@ -39,9 +39,9 @@ namespace Daramkun.dWriter
 	{
 		string _title, _copyright;
 
-		public string Title { get { return _title; } set { _title = value; PC ( "Title" ); } }
+		public string Title { get { return _title; } set { _title = value; PC ( nameof ( Title ) ); } }
 		public ObservableCollection<string> Authors { get; private set; }
-		public string Copyright { get { return _copyright; } set { _copyright = value; PC ( "Copyright" ); } }
+		public string Copyright { get { return _copyright; } set { _copyright = value; PC ( nameof ( Copyright ) ); } }
 
 		ObservableCollection<dWriterPage> pages;
 		public IReadOnlyCollection<dWriterPage> Pages { get { return pages; } }
@@ -147,16 +147,16 @@ namespace Daramkun.dWriter
 		public void ExportToHTML ( Stream stream )
 		{
 			StreamWriter writer = new StreamWriter ( stream );
-			writer.WriteLine ( string.Format ( "<!DOCTYPE html><html><head><meta charset='utf-8'><title>{0}</title></head><body><h1>{0}</h1>", Title ) );
-			writer.WriteLine ( string.Format ( "<p>{0}</p>", Copyright.Replace ( "<", "&lt;" ).Replace ( ">", "&gt;" ) ) );
-			writer.WriteLine ( string.Format ( "<p>Author: {0}</p>", string.Join ( ", ", Authors ).Replace ( "<", "&lt;" ).Replace ( ">", "&gt;" ) ) );
+			writer.WriteLine ( $"<!DOCTYPE html><html><head><meta charset='utf-8'><title>{Title}</title></head><body><h1>{Title}</h1>" );
+			writer.WriteLine ( $"<p>{Copyright.Replace ( "<", "&lt;" ).Replace ( ">", "&gt;" )}</p>" );
+			writer.WriteLine ( $"<p>Author: {string.Join ( ", ", Authors ).Replace ( "<", "&lt;" ).Replace ( ">", "&gt;" )}</p>" );
 
 			writer.Flush ();
 
 			var markupConverter = new MarkupConverter.MarkupConverter ();
 			foreach ( var page in Pages )
 			{
-				writer.WriteLine ( string.Format ( "<hr><h2>{0}</h2>", page.Title.Replace ( "<", "&lt;" ).Replace ( ">", "&gt;" ) ) );
+				writer.WriteLine ( $"<hr><h2>{page.Title.Replace ( "<", "&lt;" ).Replace ( ">", "&gt;" )}</h2>" );
 				var textRange = new TextRange ( page.Text.ContentStart, page.Text.ContentEnd );
 				MemoryStream tempStream = new MemoryStream ();
 				textRange.Save ( tempStream, DataFormats.Rtf );
@@ -177,7 +177,7 @@ namespace Daramkun.dWriter
 			StreamWriter writer = new StreamWriter ( stream );
 			writer.WriteLine ( Title );
 			writer.WriteLine ( Copyright );
-			writer.WriteLine ( string.Format ( "Author: {0}", string.Join ( ", ", Authors ) ) );
+			writer.WriteLine ( $"Author: {string.Join ( ", ", Authors )}" );
 			writer.WriteLine ();
 
 			writer.Flush ();
@@ -213,7 +213,7 @@ namespace Daramkun.dWriter
 			copyrightParagraph.FontSize = 16;
 			tempDocument.Blocks.Add ( copyrightParagraph );
 
-			var authorsParagraph = new Paragraph ( new Run ( string.Format ( "Author: {0}", string.Join ( ", ", Authors ) ) ) );
+			var authorsParagraph = new Paragraph ( new Run ( $"Author: {string.Join ( ", ", Authors )}" ) );
 			authorsParagraph.TextAlignment = TextAlignment.Center;
 			tempDocument.Blocks.Add ( authorsParagraph );
 
