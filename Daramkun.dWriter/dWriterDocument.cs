@@ -4,10 +4,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Security.Cryptography;
+using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 
@@ -17,14 +15,14 @@ namespace Daramkun.dWriter
 	{
 		string _title;
 
-		public string Title { get { return _title; } set { _title = value; PC ( nameof ( Title ) ); } }
+		public string Title { get { return _title; } set { _title = value; PC (); } }
 		public FlowDocument Text { get; set; }
 		public DateTime Created { get; set; }
 		public DateTime Modified { get; set; }
 
 		public dWriterPage () { Title = ""; Text = new FlowDocument (); Created = Modified = DateTime.Now; }
 
-		private void PC ( string name ) { if ( PropertyChanged != null ) PropertyChanged ( this, new PropertyChangedEventArgs ( name ) ); }
+		private void PC ( [CallerMemberName] string name = "" ) { PropertyChanged?.Invoke ( this, new PropertyChangedEventArgs ( name ) ); }
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
@@ -39,9 +37,9 @@ namespace Daramkun.dWriter
 	{
 		string _title, _copyright;
 
-		public string Title { get { return _title; } set { _title = value; PC ( nameof ( Title ) ); } }
+		public string Title { get { return _title; } set { _title = value; PC (); } }
 		public ObservableCollection<string> Authors { get; private set; }
-		public string Copyright { get { return _copyright; } set { _copyright = value; PC ( nameof ( Copyright ) ); } }
+		public string Copyright { get { return _copyright; } set { _copyright = value; PC (); } }
 
 		ObservableCollection<dWriterPage> pages;
 		public IReadOnlyCollection<dWriterPage> Pages { get { return pages; } }
@@ -86,11 +84,12 @@ namespace Daramkun.dWriter
 							int pageCount = reader.ReadInt32 ();
 							for ( int i = 0; i < pageCount; ++i )
 							{
-								dWriterPage page = new dWriterPage ();
-								page.Title = reader.ReadString ();
-								page.Created = DateTime.Parse ( reader.ReadString () );
-								page.Modified = DateTime.Parse ( reader.ReadString () );
-
+								dWriterPage page = new dWriterPage ()
+								{
+									Title = reader.ReadString (),
+									Created = DateTime.Parse ( reader.ReadString () ),
+									Modified = DateTime.Parse ( reader.ReadString () )
+								};
 								switch ( reader.ReadByte () )
 								{
 									case 0:
@@ -203,26 +202,34 @@ namespace Daramkun.dWriter
 		{
 			FlowDocument tempDocument = new FlowDocument ();
 
-			var titleParagraph = new Paragraph ( new Run ( Title ) );
-			titleParagraph.TextAlignment = TextAlignment.Center;
-			titleParagraph.FontSize = 32;
+			var titleParagraph = new Paragraph ( new Run ( Title ) )
+			{
+				TextAlignment = TextAlignment.Center,
+				FontSize = 32
+			};
 			tempDocument.Blocks.Add ( titleParagraph );
 
-			var copyrightParagraph = new Paragraph ( new Run ( Copyright ) );
-			copyrightParagraph.TextAlignment = TextAlignment.Center;
-			copyrightParagraph.FontSize = 16;
+			var copyrightParagraph = new Paragraph ( new Run ( Copyright ) )
+			{
+				TextAlignment = TextAlignment.Center,
+				FontSize = 16
+			};
 			tempDocument.Blocks.Add ( copyrightParagraph );
 
-			var authorsParagraph = new Paragraph ( new Run ( $"Author: {string.Join ( ", ", Authors )}" ) );
-			authorsParagraph.TextAlignment = TextAlignment.Center;
+			var authorsParagraph = new Paragraph ( new Run ( $"Author: {string.Join ( ", ", Authors )}" ) )
+			{
+				TextAlignment = TextAlignment.Center
+			};
 			tempDocument.Blocks.Add ( authorsParagraph );
 
 			foreach ( var page in Pages )
 			{
 				var section = new Section ();
 
-				var pageTitleParagraph = new Paragraph ( new Run ( page.Title ) );
-				pageTitleParagraph.FontSize = 24;
+				var pageTitleParagraph = new Paragraph ( new Run ( page.Title ) )
+				{
+					FontSize = 24
+				};
 				section.Blocks.Add ( pageTitleParagraph );
 
 				var pageTempParagraph = new Paragraph ( new Run () );
@@ -263,7 +270,7 @@ namespace Daramkun.dWriter
 
 		public void RemoveAt ( int index ) { pages.RemoveAt ( index ); }
 
-		private void PC ( string name ) { if ( PropertyChanged != null ) PropertyChanged ( this, new PropertyChangedEventArgs ( name ) ); }
+		private void PC ( [CallerMemberName] string name = "" ) { PropertyChanged?.Invoke ( this, new PropertyChangedEventArgs ( name ) ); }
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
 }
